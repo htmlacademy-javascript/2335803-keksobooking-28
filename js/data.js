@@ -17,6 +17,7 @@ const PHOTOS_LINKS = ['https://assets.htmlacademy.ru/content/intensive/javascrip
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const ANNOUNCEMENT_QUANTIY = 10;
 const getAvatarId = createRandomIdFromGenerator(1, 10);
+const translatedTypes = {'flat': 'Квартира', 'bungalow': 'Бунгало', 'house': 'Дом', 'palace': 'Дворец', 'hotel': 'Отель'};
 
 const getAvatar = () => {
   const id = getAvatarId();
@@ -27,12 +28,12 @@ const getAvatar = () => {
 };
 
 const getData = (someDataList) => {
-  const featuresListLength = generateRandomNumber(0, someDataList.length - 1);
-  const featuresList = new Set();
-  while (Array.from(featuresList).length < featuresListLength) {
-    featuresList.add(someDataList[generateRandomNumber(0, someDataList.length - 1)]);
+  const dataListLength = generateRandomNumber(1, someDataList.length);
+  const dataList = new Set();
+  while (Array.from(dataList).length < dataListLength) {
+    dataList.add(someDataList[generateRandomNumber(0, someDataList.length - 1)]);
   }
-  return featuresList;
+  return dataList;
 };
 
 const createAnnouncementObject = () => ({
@@ -63,4 +64,4 @@ const createAnnouncementObject = () => ({
 
 const createAnnouncementObjects = () => Array.from({length: ANNOUNCEMENT_QUANTIY}, createAnnouncementObject);
 
-export {createAnnouncementObjects};
+export {createAnnouncementObjects, translatedTypes};
