@@ -18,6 +18,14 @@ const PHOTOS_LINKS = ['https://assets.htmlacademy.ru/content/intensive/javascrip
 const ANNOUNCEMENT_QUANTIY = 10;
 const getAvatarId = createRandomIdFromGenerator(1, 10);
 const translatedTypes = {'flat': 'Квартира', 'bungalow': 'Бунгало', 'house': 'Дом', 'palace': 'Дворец', 'hotel': 'Отель'};
+const typesMinPrices = {'flat': 1000, 'bungalow': 0, 'house': 5000, 'palace': 10000, 'hotel': 3000};
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE = 100000;
+const ERROR_MESSAGE_TITLE_LENGTH = 'Длина заголовка должна быть в диапазоне от 30 до 100 символов';
+const ERROR_MESSAGE_PRICE = 'Значение цены должно быть числом и быть не более 100 000';
+const ERROR_MESSAGE_MIN_PRICE = 'Цена не может быть меньше указанного значения';
+const ERROR_MESSAGE_GUESTS_QAINTITY = 'Недопустимое количество гостей';
 
 const getAvatar = () => {
   const id = getAvatarId();
@@ -64,4 +72,5 @@ const createAnnouncementObject = () => ({
 
 const createAnnouncementObjects = () => Array.from({length: ANNOUNCEMENT_QUANTIY}, createAnnouncementObject);
 
-export {createAnnouncementObjects, translatedTypes};
+export {createAnnouncementObjects, translatedTypes, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH,
+  MAX_PRICE, ERROR_MESSAGE_PRICE, ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices};
