@@ -678,7 +678,11 @@ fieldset {
   padding: 4px;
 }
 
-
+.ad-form__element--invalid {
+  color: red;
+  font-size: 12px;
+  padding: 4px;
+}
 
 /* Футер
    ========================================================================== */

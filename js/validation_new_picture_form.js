@@ -1,19 +1,17 @@
 import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH, MAX_PRICE, ERROR_MESSAGE_PRICE,
   ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices} from './data.js';
 
-const newForm = document.querySelector('.notice');
+const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
 const checkIn = newForm.querySelector('#timein');
 const checkOut = newForm.querySelector('#timeout');
 
 const pristine = new Pristine (newForm, {
-  classTo: 'form__item',
-  errorClass: 'form__tem--invalid',
-  successClass: 'form__item--valid',
-  errorTextParent: 'form__item',
-  errorTextTag: 'span',
-  errorTextClass: 'form__error'
-}, false);
+  classTo: 'ad-form__element',
+  errorClass: 'ad-form__element--invalid',
+  errorTextParent: 'ad-form__element',
+  errorTextClass: 'ad-form__element--error-text',
+});
 
 const onSubmitForm = (evt) => {
   evt.preventDefault();
@@ -21,8 +19,8 @@ const onSubmitForm = (evt) => {
 };
 
 const validateTitleLength = (value) => value.length >= MIN_TITLE_LENGTH & value.length <= MAX_TITLE_LENGTH;
-const validatePrice = (value) => Number.isInteger(value) & value <= MAX_PRICE;
-const validateMinPrice = (value) => value >= newForm.querySelector('#price').placeholder;
+const validatePrice = (value) => Number.isInteger(Number(value)) & Number(value) <= MAX_PRICE;
+const validateMinPrice = (value) => Number(value) >= Number(newForm.querySelector('#price').placeholder);
 const validateGuestsQuantity = () => {
   const selecetedRooms = newForm.querySelector('#room_number').value;
   const selectedGuests = newForm.querySelector('#capacity').value;
