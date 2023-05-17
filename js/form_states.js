@@ -3,24 +3,24 @@ const newFormFieldsets = newForm.querySelectorAll('fieldset');
 const mapFilterForm = document.querySelector('.map__filters');
 
 
-const switchDisabledAttribute = (element, boolState) => {
+const toggleDisabledAttribute = (element, boolState) => {
   for (const fieldset of element) {
     fieldset.disabled = boolState;
   }
 };
 
-const switchNotActiveState = () => {
+const setStateNotActive = () => {
   newForm.classList.add('ad-form--disabled');
   mapFilterForm.classList.add('map__filters--disabled');
-  switchDisabledAttribute(newFormFieldsets, true);
-  switchDisabledAttribute(mapFilterForm, true);
+  toggleDisabledAttribute(newFormFieldsets, true);
+  toggleDisabledAttribute(mapFilterForm, true);
 };
 
-const switchActiveState = () => {
+const setStateActive = () => {
   newForm.classList.remove('ad-form--disabled');
   mapFilterForm.classList.remove('map__filters--disabled');
-  switchDisabledAttribute(newFormFieldsets, false);
-  switchDisabledAttribute(mapFilterForm, false);
+  toggleDisabledAttribute(newFormFieldsets, false);
+  toggleDisabledAttribute(mapFilterForm, false);
 };
 
-export {switchNotActiveState, switchActiveState};
+export {setStateNotActive, setStateActive};
