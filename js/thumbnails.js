@@ -1,7 +1,5 @@
 import {translatedTypes} from './data.js';
 
-
-const mapCanvas = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -40,7 +38,7 @@ const renderAllCards = (createdAnnouncementObjects) => {
   const announcementElements = [];
   createdAnnouncementObjects
     .forEach(({author, offer}) => announcementElements.push(createNewCard(author, offer)));
-  mapCanvas.appendChild(announcementElements[0]);
+  return announcementElements;
 };
 
 export {renderAllCards};

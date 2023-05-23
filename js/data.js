@@ -1,4 +1,4 @@
-import {generateRandomNumber, createRandomIdFromGenerator} from './utils.js';
+import {generateRandomNumber, createRandomIdFromGenerator, generateRandomCoordinate} from './utils.js';
 
 const TITLES = ['2-к. квартира, 62 м², 9/9 эт.', '1-к. квартира, 35 м², 8/19 эт.',
   '1-к. квартира, 43 м², 6/9 эт.', '2-к. квартира, 64 м², 22/41 эт.', '1-к. квартира, 40 м², 3/5 эт.'];
@@ -26,6 +26,27 @@ const ERROR_MESSAGE_TITLE_LENGTH = 'Длина заголовка должна �
 const ERROR_MESSAGE_PRICE = 'Значение цены должно быть числом и быть не более 100 000';
 const ERROR_MESSAGE_MIN_PRICE = 'Цена не может быть меньше указанного значения';
 const ERROR_MESSAGE_GUESTS_QAINTITY = 'Недопустимое количество гостей';
+const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const ZOOM = 10;
+const cityCenter = {
+  lat: 35.4137,
+  lng: 139.4150,
+};
+const iconConfig = {
+  url: './img/pin.svg',
+  width: 52,
+  height: 52,
+  anchorX: 26,
+  anchorY: 52,
+};
+const specialIconConfig = {
+  url: './img/main-pin.svg',
+  width: 52,
+  height: 52,
+  anchorX: 26,
+  anchorY: 52,
+};
 
 const getAvatar = () => {
   const id = getAvatarId();
@@ -51,8 +72,8 @@ const createAnnouncementObject = () => ({
   offer: {
     title: TITLES[generateRandomNumber(0, TITLES.length - 1)],
     address: {
-      lat: generateRandomNumber(35.65000, 35.70000),
-      lng: generateRandomNumber(139.70000, 139.80000),
+      lat: generateRandomCoordinate(35.65000, 35.70000),
+      lng: generateRandomCoordinate(139.70000, 139.80000),
     },
     price: generateRandomNumber(5000, 50000),
     type: TYPES[generateRandomNumber(0, TYPES.length - 1)],
@@ -64,8 +85,8 @@ const createAnnouncementObject = () => ({
     description: DESCRIPTIONS[generateRandomNumber(0, DESCRIPTIONS.length - 1)],
     photos: getData(PHOTOS_LINKS),
     location: {
-      lat: generateRandomNumber(35.65000, 35.70000),
-      lng: generateRandomNumber(139.70000, 139.80000),
+      lat: generateRandomCoordinate(35.65000, 35.70000),
+      lng: generateRandomCoordinate(139.70000, 139.80000),
     }
   }
 });
@@ -73,4 +94,5 @@ const createAnnouncementObject = () => ({
 const createAnnouncementObjects = () => Array.from({length: ANNOUNCEMENT_QUANTIY}, createAnnouncementObject);
 
 export {createAnnouncementObjects, translatedTypes, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH,
-  MAX_PRICE, ERROR_MESSAGE_PRICE, ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices};
+  MAX_PRICE, ERROR_MESSAGE_PRICE, ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices,
+  TILE_LAYER, COPYRIGHT, ZOOM, cityCenter, iconConfig, specialIconConfig};

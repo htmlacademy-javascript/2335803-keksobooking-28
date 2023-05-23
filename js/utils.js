@@ -4,6 +4,13 @@ const generateRandomNumber = (firstValue, secondValue) => {
   return Math.floor(Math.random() * (upper - lower + 1) + lower);
 };
 
+const generateRandomCoordinate = (firstValue, secondValue) => {
+  const lower = Math.min(firstValue, secondValue);
+  const upper = Math.max(firstValue, secondValue);
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return result.toFixed(4);
+};
+
 const createRandomIdFromGenerator = (firstValue, secondValue) => {
   const previousValues = [];
 
@@ -20,4 +27,4 @@ const createRandomIdFromGenerator = (firstValue, secondValue) => {
   };
 };
 
-export{generateRandomNumber, createRandomIdFromGenerator};
+export{generateRandomNumber, createRandomIdFromGenerator, generateRandomCoordinate};
