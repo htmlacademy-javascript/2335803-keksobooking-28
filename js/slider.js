@@ -1,4 +1,5 @@
 import {MAX_PRICE} from './data.js';
+import {pristine} from './validation_new_form.js';
 
 const newForm = document.querySelector('.ad-form');
 const price = newForm.querySelector('#price');
@@ -28,6 +29,7 @@ const updateSlider = () => {
 const onPriceSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
   price.value = Math.floor(sliderValue);
+  pristine.validate(price);
 };
 
 sliderElement.noUiSlider.on('update', onPriceSliderUpdate);

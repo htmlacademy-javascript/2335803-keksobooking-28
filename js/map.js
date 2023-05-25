@@ -6,8 +6,6 @@ const newFormAddress = document
   .querySelector('.ad-form').querySelector('#address');
 
 const map = L.map('map-canvas')
-  // .on('load', () => {console.log('Карта инициализирована');
-  // })
   .setView(cityCenter, ZOOM);
 
 const regularIcon = L.icon({
@@ -60,8 +58,8 @@ const renderMap = (objects, cards) => {
 
   for (let i = 0; i < objects.length; i ++) {
     const object = objects[i];
-    const address = object.offer.address;
-    createNewMarker (address.lat, address.lng, regularIcon, cards[i], false);
+    const {lat,lng } = object.offer.address;
+    createNewMarker (lat, lng, regularIcon, cards[i], false);
   }
 
   createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);

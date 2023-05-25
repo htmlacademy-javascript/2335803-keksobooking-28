@@ -53,4 +53,4 @@ const addNewFormListeners = () => {
   checkOut.addEventListener('change', onButtonChangeCheckOut);
 };
 
-export {checkNewForm, addNewFormListeners};
+export {checkNewForm, addNewFormListeners, pristine};
