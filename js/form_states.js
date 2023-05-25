@@ -1,7 +1,7 @@
 const newForm = document.querySelector('.ad-form');
 const newFormFieldsets = newForm.querySelectorAll('fieldset');
+const newFormAddress = newForm.querySelector('#address');
 const mapFilterForm = document.querySelector('.map__filters');
-
 
 const toggleDisabledAttribute = (element, boolState) => {
   for (const fieldset of element) {
@@ -21,6 +21,7 @@ const setStateActive = () => {
   mapFilterForm.classList.remove('map__filters--disabled');
   toggleDisabledAttribute(newFormFieldsets, false);
   toggleDisabledAttribute(mapFilterForm, false);
+  newFormAddress.parentElement.disabled = true;
 };
 
 export {setStateNotActive, setStateActive};
