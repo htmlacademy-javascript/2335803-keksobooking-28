@@ -1,12 +1,24 @@
-import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH, MAX_PRICE, ERROR_MESSAGE_PRICE,
-  ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices} from './data.js';
+import {
+  MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH, MAX_PRICE, ERROR_MESSAGE_PRICE,
+  ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices
+} from './data.js';
+import {sendData} from './api.js';
+import {isEscapeKey} from './utils.js';
+import {showUploadingMessage} from './new_form.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
 const checkIn = newForm.querySelector('#timein');
 const checkOut = newForm.querySelector('#timeout');
+const successUploadingMessage = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+const errorUploadingMessage = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+let notificationMesageElement;
 
-const pristine = new Pristine (newForm, {
+const pristine = new Pristine(newForm, {
   classTo: 'ad-form__element',
   errorClass: 'ad-form__element--invalid',
   errorTextParent: 'ad-form__element',
@@ -15,7 +27,32 @@ const pristine = new Pristine (newForm, {
 
 const onSubmitForm = (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  if (pristine.validate()) {
+    sendData(new FormData(evt.target))
+      .then((response) => {
+        if (response) {
+          notificationMesageElement = showUploadingMessage(successUploadingMessage);
+        }
+      })
+      .catch(
+        () => {
+          notificationMesageElement = showUploadingMessage(errorUploadingMessage);
+        }
+      )
+      .finally(
+
+      );
+  }
+};
+
+const onCloseNotification = (evt) => {
+  const checkClassName = () => evt.target.className.includes('error') || evt.target.className.includes('success');
+  if (isEscapeKey(evt) || checkClassName()) {
+    notificationMesageElement.parentNode.removeChild(notificationMesageElement);
+  }
+  if (notificationMesageElement.className.includes('error')){
+    newForm.addEventListener('submit', onSubmitForm);
+  }
 };
 
 const validateTitleLength = (value) => value.length >= MIN_TITLE_LENGTH & value.length <= MAX_TITLE_LENGTH;
@@ -53,4 +90,4 @@ const addNewFormListeners = () => {
   checkOut.addEventListener('change', onButtonChangeCheckOut);
 };
 
-export {checkNewForm, addNewFormListeners, pristine};
+export {checkNewForm, addNewFormListeners, onCloseNotification, pristine, onButtonChangeCheckIn};

@@ -58,11 +58,11 @@ const renderMap = (objects, cards) => {
 
   for (let i = 0; i < objects.length; i ++) {
     const object = objects[i];
-    const {lat,lng } = object.offer.address;
+    const {lat,lng } = object.location;
     createNewMarker (lat, lng, regularIcon, cards[i], false);
   }
 
   createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);
 };
 
-export {renderMap};
+export {renderMap, createNewMarker, specialIcon};

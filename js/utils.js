@@ -1,3 +1,7 @@
+import {ALERT_SHOW_TIME} from './data.js';
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const generateRandomNumber = (firstValue, secondValue) => {
   const lower = Math.min(firstValue, secondValue);
   const upper = Math.max(firstValue, secondValue);
@@ -27,4 +31,24 @@ const createRandomIdFromGenerator = (firstValue, secondValue) => {
   };
 };
 
-export{generateRandomNumber, createRandomIdFromGenerator, generateRandomCoordinate};
+const showAllert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '25%';
+  alertContainer.style.top = '25%';
+  alertContainer.style.right = '25%';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '20px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = 'red';
+  alertContainer.style.backgroundColor = 'white';
+
+  alertContainer.textContent = message;
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export{generateRandomNumber, createRandomIdFromGenerator, generateRandomCoordinate, showAllert, isEscapeKey};
