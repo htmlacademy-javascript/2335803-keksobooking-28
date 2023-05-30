@@ -2,6 +2,7 @@ import {setStateActive} from './form_states.js';
 import {updateSlider} from './slider.js';
 import {TILE_LAYER, ZOOM, cityCenter, iconConfig, specialIconConfig, COPYRIGHT} from './data.js';
 
+let mainPinMarker;
 const newFormAddress = document
   .querySelector('.ad-form').querySelector('#address');
 
@@ -45,6 +46,7 @@ const createNewMarker = (lat, lng, icon, popup, draggableStatus) => {
       const newLat = evt.target.getLatLng().lat;
       const newLng = evt.target.getLatLng().lng;
       newFormAddress.value = `Ширина ${newLat.toFixed(4)}; Долгота ${newLng.toFixed(4)}`;
+      mainPinMarker = marker;
     });
   }
 };
@@ -58,11 +60,16 @@ const renderMap = (objects, cards) => {
 
   for (let i = 0; i < objects.length; i ++) {
     const object = objects[i];
-    const {lat,lng } = object.offer.address;
+    const {lat,lng } = object.location;
     createNewMarker (lat, lng, regularIcon, cards[i], false);
   }
 
   createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);
 };
 
-export {renderMap};
+const resetSpecialIcon = () => {
+  mainPinMarker.setLatLng(cityCenter);
+  map.setView(cityCenter, ZOOM);
+};
+
+export {renderMap, createNewMarker, specialIcon, resetSpecialIcon};

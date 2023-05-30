@@ -29,14 +29,29 @@ const ERROR_MESSAGE_GUESTS_QAINTITY = 'Недопустимое количест
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const ZOOM = 10;
+const BASE_URL = 'https://28.javascript.pages.academy/keksobooking';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
+const Method = {
+  GET: 'GET',
+  POST: 'POST',
+};
+const ErrorText = {
+  GET_DATA: 'Не удалось загрузить данные. Попробуйте обновить странницу',
+  SEND_DATA: 'Не удалось отправить форму. Попробуйте отправить снова',
+};
+const ALERT_SHOW_TIME = 5000;
+const DEBOUNCE_TIME_INTERVAL = 500;
 const cityCenter = {
   lat: 35.4137,
   lng: 139.4150,
 };
 const iconConfig = {
   url: './img/pin.svg',
-  width: 52,
-  height: 52,
+  width: 40,
+  height: 40,
   anchorX: 26,
   anchorY: 52,
 };
@@ -95,4 +110,4 @@ const createAnnouncementObjects = () => Array.from({length: ANNOUNCEMENT_QUANTIY
 
 export {createAnnouncementObjects, translatedTypes, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH,
   MAX_PRICE, ERROR_MESSAGE_PRICE, ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices,
-  TILE_LAYER, COPYRIGHT, ZOOM, cityCenter, iconConfig, specialIconConfig};
+  TILE_LAYER, COPYRIGHT, ZOOM, cityCenter, iconConfig, specialIconConfig, BASE_URL, ErrorText, Route, Method, ALERT_SHOW_TIME, DEBOUNCE_TIME_INTERVAL};

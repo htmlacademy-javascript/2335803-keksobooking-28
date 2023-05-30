@@ -1,21 +1,62 @@
-import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH, MAX_PRICE, ERROR_MESSAGE_PRICE,
-  ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices} from './data.js';
+import {
+  MIN_TITLE_LENGTH, MAX_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH, MAX_PRICE, ERROR_MESSAGE_PRICE,
+  ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices
+} from './data.js';
+import {sendData} from './api.js';
+import {pristine} from './pristine.js';
+import {onCloseNotification, onEscapeCloseForm, onButtonFormCloseClick} from './new_form.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
 const checkIn = newForm.querySelector('#timein');
 const checkOut = newForm.querySelector('#timeout');
+const newFormAddress = newForm.querySelector('#address');
+const submitButton = newForm.querySelector('.ad-form__submit');
+const resetButton = newForm.querySelector('.ad-form__reset');
+const successUploadingMessage = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+const errorUploadingMessage = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+let notificationMesageElement;
 
-const pristine = new Pristine (newForm, {
-  classTo: 'ad-form__element',
-  errorClass: 'ad-form__element--invalid',
-  errorTextParent: 'ad-form__element',
-  errorTextClass: 'ad-form__element--error-text',
-});
+const showUploadingMessage = (notificationMessage) => {
+  document.body.appendChild(notificationMessage);
+  notificationMesageElement = notificationMessage;
+  document.addEventListener('click', onCloseNotification);
+  document.addEventListener('keydown', onCloseNotification);
+  if (notificationMesageElement.className.includes('success')) {
+    onButtonFormCloseClick();
+  } else if (notificationMesageElement.className.includes('error')){
+    document.removeEventListener('keydown', onEscapeCloseForm);
+  }
+  return notificationMesageElement;
+};
 
 const onSubmitForm = (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  if (pristine.validate()) {
+    newFormAddress.disabled = false;
+    submitButton.disabled = true;
+    resetButton.disabled = true;
+    sendData(new FormData(evt.target))
+      .then((response) => {
+        if (response) {
+          notificationMesageElement = showUploadingMessage(successUploadingMessage);
+        }
+      })
+      .catch(
+        () => {
+          notificationMesageElement = showUploadingMessage(errorUploadingMessage);
+        }
+      )
+      .finally(
+        newFormAddress.disabled = true,
+        submitButton.disabled = false,
+        resetButton.disabled = false
+      );
+  }
 };
 
 const validateTitleLength = (value) => value.length >= MIN_TITLE_LENGTH & value.length <= MAX_TITLE_LENGTH;
@@ -53,4 +94,9 @@ const addNewFormListeners = () => {
   checkOut.addEventListener('change', onButtonChangeCheckOut);
 };
 
-export {checkNewForm, addNewFormListeners, pristine};
+const removeListeners = () => {
+  document.removeEventListener('click', onCloseNotification);
+  document.removeEventListener('keydown', onCloseNotification);
+};
+
+export {checkNewForm, addNewFormListeners, pristine, onButtonChangeCheckIn, onSubmitForm, notificationMesageElement, removeListeners};
