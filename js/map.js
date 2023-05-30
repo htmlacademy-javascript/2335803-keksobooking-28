@@ -2,6 +2,7 @@ import {setStateActive} from './form_states.js';
 import {updateSlider} from './slider.js';
 import {TILE_LAYER, ZOOM, cityCenter, iconConfig, specialIconConfig, COPYRIGHT} from './data.js';
 
+let mainPinMarker;
 const newFormAddress = document
   .querySelector('.ad-form').querySelector('#address');
 
@@ -62,7 +63,12 @@ const renderMap = (objects, cards) => {
     createNewMarker (lat, lng, regularIcon, cards[i], false);
   }
 
-  createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);
+  mainPinMarker = createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);
 };
 
-export {renderMap, createNewMarker, specialIcon};
+const resetSpecialIcon = () => {
+  //mainPinMarker.setLatLng(cityCenter);
+  map.setView(cityCenter, ZOOM);
+};
+
+export {renderMap, createNewMarker, specialIcon, resetSpecialIcon};

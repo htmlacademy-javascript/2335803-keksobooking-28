@@ -22,7 +22,7 @@ const setStateActive = () => {
   mapFilterForm.classList.remove('map__filters--disabled');
   toggleDisabledAttribute(newFormFieldsets, false);
   toggleDisabledAttribute(mapFilterForm, false);
-  newFormAddress.parentElement.disabled = true;
+  newFormAddress.disabled = true;
 };
 
 export {setStateNotActive, setStateActive};

@@ -1,8 +1,7 @@
 import {onButtonChangeCheckIn, onSubmitForm, notificationMesageElement, removeListeners} from './validation_new_form.js';
 import {isEscapeKey} from './utils.js';
-import {specialIcon, createNewMarker} from './map.js';
-import {cityCenter} from './data.js';
 import {updateSlider} from './slider.js';
+import {resetSpecialIcon} from './map.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
@@ -32,7 +31,7 @@ const onButtonFormCloseClick = () => {
   newFormPrice.value = 1000;
   checkIn.value = '12:00';
   onButtonChangeCheckIn();
-  createNewMarker(cityCenter.lat, cityCenter.lng, specialIcon, null, true);
+  resetSpecialIcon();
   updateSlider();
 
   if (mapPopup) {

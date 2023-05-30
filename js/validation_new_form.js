@@ -5,12 +5,14 @@ import {
 import {sendData} from './api.js';
 import {pristine} from './pristine.js';
 import {onCloseNotification, onEscapeCloseForm, onButtonFormCloseClick} from './new_form.js';
-import {setStateNotActive, setStateActive} from './form_states.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
 const checkIn = newForm.querySelector('#timein');
 const checkOut = newForm.querySelector('#timeout');
+const newFormAddress = newForm.querySelector('#address');
+const submitButton = newForm.querySelector('.ad-form__submit');
+const resetButton = newForm.querySelector('.ad-form__reset');
 const successUploadingMessage = document.querySelector('#success')
   .content
   .querySelector('.success');
@@ -35,7 +37,9 @@ const showUploadingMessage = (notificationMessage) => {
 const onSubmitForm = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    setStateNotActive();
+    newFormAddress.disabled = false;
+    submitButton.disabled = true;
+    resetButton.disabled = true;
     sendData(new FormData(evt.target))
       .then((response) => {
         if (response) {
@@ -48,7 +52,9 @@ const onSubmitForm = (evt) => {
         }
       )
       .finally(
-        setStateActive()
+        newFormAddress.disabled = true,
+        submitButton.disabled = false,
+        resetButton.disabled = false
       );
   }
 };
@@ -91,7 +97,6 @@ const addNewFormListeners = () => {
 const removeListeners = () => {
   document.removeEventListener('click', onCloseNotification);
   document.removeEventListener('keydown', onCloseNotification);
-  newForm.removeEventListener('submit', onSubmitForm);
 };
 
 export {checkNewForm, addNewFormListeners, pristine, onButtonChangeCheckIn, onSubmitForm, notificationMesageElement, removeListeners};
