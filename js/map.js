@@ -46,6 +46,7 @@ const createNewMarker = (lat, lng, icon, popup, draggableStatus) => {
       const newLat = evt.target.getLatLng().lat;
       const newLng = evt.target.getLatLng().lng;
       newFormAddress.value = `Ширина ${newLat.toFixed(4)}; Долгота ${newLng.toFixed(4)}`;
+      mainPinMarker = marker;
     });
   }
 };
@@ -63,11 +64,11 @@ const renderMap = (objects, cards) => {
     createNewMarker (lat, lng, regularIcon, cards[i], false);
   }
 
-  mainPinMarker = createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);
+  createNewMarker (cityCenter.lat, cityCenter.lng, specialIcon, null, true);
 };
 
 const resetSpecialIcon = () => {
-  //mainPinMarker.setLatLng(cityCenter);
+  mainPinMarker.setLatLng(cityCenter);
   map.setView(cityCenter, ZOOM);
 };
 
