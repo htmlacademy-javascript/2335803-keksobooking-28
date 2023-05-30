@@ -1,4 +1,4 @@
-import {onCloseNotification, onButtonChangeCheckIn} from './validation_new_form.js';
+import {onButtonChangeCheckIn, onSubmitForm, notificationMesageElement, removeListeners} from './validation_new_form.js';
 import {isEscapeKey} from './utils.js';
 import {specialIcon, createNewMarker} from './map.js';
 import {cityCenter} from './data.js';
@@ -12,7 +12,6 @@ const newFormTitle = newForm.querySelector('#title');
 const newFormDescription = newForm.querySelector('#description');
 const newFormPrice = newForm.querySelector('#price');
 const newFormAddress = newForm.querySelector('#address');
-let notificationMesageElement;
 
 const cancelCheckedFeatures = () => {
   newFormFeatures.forEach((feature) => {
@@ -48,17 +47,15 @@ const onEscapeCloseForm = (evt) => {
   }
 };
 
-const showUploadingMessage = (notificationMessage) => {
-  document.body.appendChild(notificationMessage);
-  notificationMesageElement = notificationMessage;
-  document.addEventListener('click', onCloseNotification);
-  document.addEventListener('keydown', onCloseNotification);
-  if (notificationMesageElement.className.includes('success')) {
-    onButtonFormCloseClick();
-  } else if (notificationMesageElement.className.includes('error')){
-    document.removeEventListener('keydown', onEscapeCloseForm);
+const onCloseNotification = (evt) => {
+  const checkClassName = () => evt.target.className.includes('error') || evt.target.className.includes('success');
+  if (isEscapeKey(evt) || checkClassName()) {
+    notificationMesageElement.parentNode.removeChild(notificationMesageElement);
+    removeListeners();
   }
-  return notificationMesageElement;
+  if (notificationMesageElement.className.includes('error')){
+    newForm.addEventListener('submit', onSubmitForm);
+  }
 };
 
-export {showUploadingMessage, onButtonFormCloseClick};
+export {onButtonFormCloseClick, onCloseNotification, onEscapeCloseForm};

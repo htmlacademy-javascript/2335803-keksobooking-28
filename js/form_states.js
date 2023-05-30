@@ -3,6 +3,7 @@ const newFormFieldsets = newForm.querySelectorAll('fieldset');
 const newFormAddress = newForm.querySelector('#address');
 const mapFilterForm = document.querySelector('.map__filters');
 
+
 const toggleDisabledAttribute = (element, boolState) => {
   for (const fieldset of element) {
     fieldset.disabled = boolState;

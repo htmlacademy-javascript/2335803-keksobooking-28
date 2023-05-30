@@ -3,8 +3,9 @@ import {
   ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices
 } from './data.js';
 import {sendData} from './api.js';
-import {isEscapeKey} from './utils.js';
-import {showUploadingMessage} from './new_form.js';
+import {pristine} from './pristine.js';
+import {onCloseNotification, onEscapeCloseForm, onButtonFormCloseClick} from './new_form.js';
+import {setStateNotActive, setStateActive} from './form_states.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
@@ -18,16 +19,23 @@ const errorUploadingMessage = document.querySelector('#error')
   .querySelector('.error');
 let notificationMesageElement;
 
-const pristine = new Pristine(newForm, {
-  classTo: 'ad-form__element',
-  errorClass: 'ad-form__element--invalid',
-  errorTextParent: 'ad-form__element',
-  errorTextClass: 'ad-form__element--error-text',
-});
+const showUploadingMessage = (notificationMessage) => {
+  document.body.appendChild(notificationMessage);
+  notificationMesageElement = notificationMessage;
+  document.addEventListener('click', onCloseNotification);
+  document.addEventListener('keydown', onCloseNotification);
+  if (notificationMesageElement.className.includes('success')) {
+    onButtonFormCloseClick();
+  } else if (notificationMesageElement.className.includes('error')){
+    document.removeEventListener('keydown', onEscapeCloseForm);
+  }
+  return notificationMesageElement;
+};
 
 const onSubmitForm = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
+    setStateNotActive();
     sendData(new FormData(evt.target))
       .then((response) => {
         if (response) {
@@ -40,18 +48,8 @@ const onSubmitForm = (evt) => {
         }
       )
       .finally(
-
+        setStateActive()
       );
-  }
-};
-
-const onCloseNotification = (evt) => {
-  const checkClassName = () => evt.target.className.includes('error') || evt.target.className.includes('success');
-  if (isEscapeKey(evt) || checkClassName()) {
-    notificationMesageElement.parentNode.removeChild(notificationMesageElement);
-  }
-  if (notificationMesageElement.className.includes('error')){
-    newForm.addEventListener('submit', onSubmitForm);
   }
 };
 
@@ -90,4 +88,10 @@ const addNewFormListeners = () => {
   checkOut.addEventListener('change', onButtonChangeCheckOut);
 };
 
-export {checkNewForm, addNewFormListeners, onCloseNotification, pristine, onButtonChangeCheckIn};
+const removeListeners = () => {
+  document.removeEventListener('click', onCloseNotification);
+  document.removeEventListener('keydown', onCloseNotification);
+  newForm.removeEventListener('submit', onSubmitForm);
+};
+
+export {checkNewForm, addNewFormListeners, pristine, onButtonChangeCheckIn, onSubmitForm, notificationMesageElement, removeListeners};
