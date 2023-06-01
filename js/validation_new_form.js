@@ -5,6 +5,7 @@ import {
 import {sendData} from './api.js';
 import {pristine} from './pristine.js';
 import {onCloseNotification, onEscapeCloseForm, onButtonFormCloseClick} from './new_form.js';
+import {renderNewFormAvatar} from './new_picture_preview.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
@@ -92,6 +93,7 @@ const addNewFormListeners = () => {
   housingType.addEventListener('change', onButtonChangeType);
   checkIn.addEventListener('change', onButtonChangeCheckIn);
   checkOut.addEventListener('change', onButtonChangeCheckOut);
+  renderNewFormAvatar();
 };
 
 const removeListeners = () => {

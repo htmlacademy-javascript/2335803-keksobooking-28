@@ -62,6 +62,7 @@ const specialIconConfig = {
   anchorX: 26,
   anchorY: 52,
 };
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const getAvatar = () => {
   const id = getAvatarId();
@@ -110,4 +111,5 @@ const createAnnouncementObjects = () => Array.from({length: ANNOUNCEMENT_QUANTIY
 
 export {createAnnouncementObjects, translatedTypes, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH,
   MAX_PRICE, ERROR_MESSAGE_PRICE, ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices,
-  TILE_LAYER, COPYRIGHT, ZOOM, cityCenter, iconConfig, specialIconConfig, BASE_URL, ErrorText, Route, Method, ALERT_SHOW_TIME, DEBOUNCE_TIME_INTERVAL};
+  TILE_LAYER, COPYRIGHT, ZOOM, cityCenter, iconConfig, specialIconConfig, BASE_URL, ErrorText, Route, Method, ALERT_SHOW_TIME, DEBOUNCE_TIME_INTERVAL,
+  FILE_TYPES};

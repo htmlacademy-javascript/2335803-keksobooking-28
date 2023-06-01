@@ -11,6 +11,8 @@ const newFormTitle = newForm.querySelector('#title');
 const newFormDescription = newForm.querySelector('#description');
 const newFormPrice = newForm.querySelector('#price');
 const newFormAddress = newForm.querySelector('#address');
+const avatarPreview = document.querySelector('.ad-form-header__preview').querySelector('img');
+const picturePreview = document.querySelector('.ad-form__photo');
 
 const cancelCheckedFeatures = () => {
   newFormFeatures.forEach((feature) => {
@@ -33,6 +35,8 @@ const onButtonFormCloseClick = () => {
   onButtonChangeCheckIn();
   resetSpecialIcon();
   updateSlider();
+  avatarPreview.src = 'img/muffin-grey.svg';
+  picturePreview.querySelector('img').parentNode.removeChild(picturePreview.querySelector('img'));
 
   if (mapPopup) {
     mapPopup.classList.add('visually-hidden');
