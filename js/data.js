@@ -63,6 +63,13 @@ const specialIconConfig = {
   anchorY: 52,
 };
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const DEFAULT_FILTER = 'any';
+const PricesRange = {
+  low: {min: 0, max: 9999},
+  middle: {min: 10000, max: 50000},
+  high: {min: 50001, max: Infinity},
+};
+const MAX_ICONS_COUNT = 10;
 
 const getAvatar = () => {
   const id = getAvatarId();
@@ -112,4 +119,4 @@ const createAnnouncementObjects = () => Array.from({length: ANNOUNCEMENT_QUANTIY
 export {createAnnouncementObjects, translatedTypes, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH, ERROR_MESSAGE_TITLE_LENGTH,
   MAX_PRICE, ERROR_MESSAGE_PRICE, ERROR_MESSAGE_GUESTS_QAINTITY, ERROR_MESSAGE_MIN_PRICE, typesMinPrices,
   TILE_LAYER, COPYRIGHT, ZOOM, cityCenter, iconConfig, specialIconConfig, BASE_URL, ErrorText, Route, Method, ALERT_SHOW_TIME, DEBOUNCE_TIME_INTERVAL,
-  FILE_TYPES};
+  FILE_TYPES, DEFAULT_FILTER, PricesRange, MAX_ICONS_COUNT};
