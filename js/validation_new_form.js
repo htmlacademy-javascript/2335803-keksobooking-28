@@ -6,6 +6,7 @@ import {sendData} from './api.js';
 import {pristine} from './pristine.js';
 import {onCloseNotification, onEscapeCloseForm, onButtonFormCloseClick} from './new_form.js';
 import {renderNewFormAvatar} from './new_picture_preview.js';
+import {resetMapFilters} from './filters.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
@@ -45,6 +46,7 @@ const onSubmitForm = (evt) => {
       .then((response) => {
         if (response) {
           notificationMesageElement = showUploadingMessage(successUploadingMessage);
+          resetMapFilters();
         }
       })
       .catch(
