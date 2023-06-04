@@ -36,7 +36,10 @@ const onButtonFormCloseClick = () => {
   resetSpecialIcon();
   updateSlider();
   avatarPreview.src = 'img/muffin-grey.svg';
-  picturePreview.querySelector('img').parentNode.removeChild(picturePreview.querySelector('img'));
+
+  if (picturePreview.querySelector('img')) {
+    picturePreview.querySelector('img').parentNode.removeChild(picturePreview.querySelector('img'));
+  }
 
   if (mapPopup) {
     mapPopup.classList.add('visually-hidden');
