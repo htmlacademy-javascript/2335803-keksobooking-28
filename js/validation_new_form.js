@@ -36,12 +36,16 @@ const showUploadingMessage = (notificationMessage) => {
   return notificationMesageElement;
 };
 
+const toggleDisableElement = (element, elementStatus) => {
+  element.disabled = elementStatus;
+};
+
 const onSubmitForm = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    newFormAddress.disabled = false;
-    submitButton.disabled = true;
-    resetButton.disabled = true;
+    toggleDisableElement(newFormAddress, false);
+    toggleDisableElement(submitButton, true);
+    toggleDisableElement(resetButton, true);
     sendData(new FormData(evt.target))
       .then((response) => {
         if (response) {
@@ -55,9 +59,9 @@ const onSubmitForm = (evt) => {
         }
       )
       .finally(
-        newFormAddress.disabled = true,
-        submitButton.disabled = false,
-        resetButton.disabled = false
+        toggleDisableElement(newFormAddress, true),
+        toggleDisableElement(submitButton, false),
+        toggleDisableElement(resetButton, false),
       );
   }
 };

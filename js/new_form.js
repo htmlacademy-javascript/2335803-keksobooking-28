@@ -2,6 +2,7 @@ import {onButtonChangeCheckIn, onSubmitForm, notificationMesageElement, removeLi
 import {isEscapeKey} from './utils.js';
 import {updateSlider} from './slider.js';
 import {resetSpecialIcon} from './map.js';
+import {resetMapFilters} from './filters.js';
 
 const newForm = document.querySelector('.ad-form');
 const housingType = newForm.querySelector('#type');
@@ -13,6 +14,7 @@ const newFormPrice = newForm.querySelector('#price');
 const newFormAddress = newForm.querySelector('#address');
 const avatarPreview = document.querySelector('.ad-form-header__preview').querySelector('img');
 const picturePreview = document.querySelector('.ad-form__photo');
+const resetButton = newForm.querySelector('.ad-form__reset');
 
 const cancelCheckedFeatures = () => {
   newFormFeatures.forEach((feature) => {
@@ -47,8 +49,7 @@ const onButtonFormCloseClick = () => {
 };
 
 const onEscapeCloseForm = (evt) => {
-  const activeElement = () => document.activeElement.id === 'description' || document.activeElement.id === 'hashtags';
-  if (isEscapeKey(evt) && !activeElement()) {
+  if (isEscapeKey(evt)) {
     onButtonFormCloseClick();
   }
 };
@@ -63,5 +64,7 @@ const onCloseNotification = (evt) => {
     newForm.addEventListener('submit', onSubmitForm);
   }
 };
+
+resetButton.addEventListener('click', resetMapFilters);
 
 export {onButtonFormCloseClick, onCloseNotification, onEscapeCloseForm};
